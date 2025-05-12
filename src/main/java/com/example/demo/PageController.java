@@ -9,4 +9,8 @@ public class PageController {
     public String showTestPage() {
         return "test";  // templates/test.html を探して返す
     }
+    @GetMapping("/crm")
+    public String showInitialPage() {
+        return "initial";
+    }
 }
