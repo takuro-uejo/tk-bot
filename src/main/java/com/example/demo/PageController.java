@@ -10,4 +10,8 @@ public class PageController {
         System.out.println("GET /test.");
         return "test"; // templates/test.html を探して返す
     }
+    @GetMapping("/crm")
+    public String showInitialPage() {
+        return "initial";
+    }
 }
