@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public class PageController {
     @GetMapping("/test")
     public String showTestPage() {
+        System.out.println("GET /test.");
         return "test"; // templates/test.html を探して返す
     }
 
@@ -17,6 +18,7 @@ public class PageController {
     public String handleWebhook(@RequestBody String requestBody, @RequestHeader("X-Line-Signature") String signature) {
         // LINEbotからのリクエストはこのパスで拾う
         // 今はテスト的にOKを返す
+        System.out.println("POST /webhook.");
         return "OK";
     }
 }
