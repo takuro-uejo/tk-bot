@@ -39,7 +39,15 @@ public class LineWebhookRequest {
     @Setter
     public static class DeliveryContext {
         @JsonProperty("redelivery")
-        private boolean isRedelivery;
+        private boolean redelivery;
+
+        public boolean isRedelivery() {
+            return redelivery;
+        }
+
+        public void setRedelivery(boolean redelivery) {
+            this.redelivery = redelivery;
+        }
     }
 
     @Getter
