@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -37,6 +38,7 @@ public class LineWebhookRequest {
 
     @Getter
     @Setter
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DeliveryContext {
         @JsonProperty("redelivery")
         private boolean redelivery;
