@@ -30,6 +30,10 @@ public class LineBotController {
         try {
             // ここでpayloadをLineWebhookRequestにパースする
             LineWebhookRequest request = objectMapper.readValue(payload, LineWebhookRequest.class);
+            // イベントが存在しない場合には問答無用で200返す（Developer ConsoleからのVerifyがエラーになると気持ち悪いので）
+            if (request.getEvents() == null || request.getEvents().isEmpty()) {
+                return ResponseEntity.ok("No events (probably LINE verify request)");
+            }
             String replyToken = "";
             String receivedText = "";
             for (LineWebhookRequest.Event event : request.getEvents()) {
