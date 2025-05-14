@@ -51,8 +51,7 @@ public class LineBotController {
 
     // tokenとmessageをもらってリプライするメソッド
     private ResponseEntity<String> replyMessage(String replyToken, String message) {
-        //String channelAccessToken = lineConfig.getChannelAccessToken();
-        String channelAccessToken = System.getenv("CHANNEL_ACCESS_TOKEN");
+        String channelAccessToken = System.getenv("LINE_CHANNEL_ACCESS_TOKEN");
         RestTemplate restTemplate = new RestTemplate();
         // HTTPヘッダ
         HttpHeaders headers = new HttpHeaders();
