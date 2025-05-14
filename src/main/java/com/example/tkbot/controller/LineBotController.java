@@ -3,6 +3,7 @@ package com.example.tkbot.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.tkbot.config.LineConfig;
 import com.example.tkbot.model.LineWebhookRequest;
 
 @RestController
@@ -18,10 +20,12 @@ import com.example.tkbot.model.LineWebhookRequest;
 public class LineBotController {
     // リプライのリクエストを送るエンドポイント
     private static final String REPLY_END_POINT_URL = "https://api.line.me/v2/bot/message/reply";
-    // LINE Developersから取得したチャネルアクセストークン（長期）
-    private static final String CHANNEL_ACCESS_TOKEN = "2mHB9JHG9Upq1sSBiQDi5YL0J2qcdffUVHXSw7/0YwyhNJ09AtSyqnEoPyBjvzqQ9r2q67WmdqUidqs8KAY4MH4AU2zCAHXHRXgOdt1w4UurS4XiLwugjCvOppzkgERhlDvGyDJOy9AqCZ/ihXAjmgdB04t89/1O/w1cDnyilFU=";
     // モデルをパースするやつ
     private final ObjectMapper objectMapper = new ObjectMapper();
+    // applicaton.properties経由で.evnから読み取った情報を持っているconfigのオブジェクト
+    // LINEのチャンネルアクセストークンは機密事項でGit管理したくないので、.envファイルに定義したやつを使う
+    @Autowired
+    private LineConfig lineConfig;
 
     @PostMapping
     public ResponseEntity<String> webhook(@RequestBody String payload) {
@@ -53,10 +57,11 @@ public class LineBotController {
 
     // tokenとmessageをもらってリプライするメソッド
     private ResponseEntity<String> replyMessage(String replyToken, String message) {
+        String channelAccessToken = lineConfig.getChannelAccessToken();
         RestTemplate restTemplate = new RestTemplate();
         // HTTPヘッダ
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(CHANNEL_ACCESS_TOKEN);
+        headers.setBearerAuth(channelAccessToken);
         headers.setContentType(MediaType.APPLICATION_JSON);
         // 送り返すメッセージのオブジェクトを作成
         // TODO: いったんオウム返しなので受け取ったもの（message）をそのままセットするだけ
