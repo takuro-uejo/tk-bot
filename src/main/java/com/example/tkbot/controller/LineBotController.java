@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.tkbot.controller;
 
 import java.util.List;
 import java.util.Map;
