@@ -3,7 +3,6 @@ package com.example.tkbot.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.tkbot.config.LineConfig;
 import com.example.tkbot.model.LineWebhookRequest;
 
 @RestController
@@ -22,10 +20,6 @@ public class LineBotController {
     private static final String REPLY_END_POINT_URL = "https://api.line.me/v2/bot/message/reply";
     // モデルをパースするやつ
     private final ObjectMapper objectMapper = new ObjectMapper();
-    // applicaton.properties経由で.evnから読み取った情報を持っているconfigのオブジェクト
-    // LINEのチャンネルアクセストークンは機密事項でGit管理したくないので、.envファイルに定義したやつを使う
-    @Autowired
-    private LineConfig lineConfig;
 
     @PostMapping
     public ResponseEntity<String> webhook(@RequestBody String payload) {
