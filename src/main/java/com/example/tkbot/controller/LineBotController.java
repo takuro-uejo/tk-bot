@@ -30,20 +30,15 @@ public class LineBotController {
         try {
             // ここでpayloadをLineWebhookRequestにパースする
             LineWebhookRequest request = objectMapper.readValue(payload, LineWebhookRequest.class);
-            String replyToken = null;
-            String receivedText = null;
+            String replyToken = "";
+            String receivedText = "";
             for (LineWebhookRequest.Event event : request.getEvents()) {
                 replyToken = event.getReplyToken();
                 receivedText = event.getMessage().getText();
                 System.out.println("受信メッセージ: " + receivedText);
             }
-            if (replyToken != null && receivedText != null) {
-                // ここでreplyTokenとreceivedTextがあることを担保してリプライする
-                return replyMessage(replyToken, receivedText);
-            } else {
-                // replyToken か receivedTextが空だったときはその旨のエラー返す
-                return ResponseEntity.badRequest().body("Invalid payload: replyToken or receivedText is NULL.");
-            }
+            // ここでリプライする
+            return replyMessage(replyToken, receivedText);
         } catch (Exception e) {
             // 多分パースエラーのときここ
             // リクエスト失敗なので400で（仮に）"Invalid payload"ってメッセージ返しておく
