@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @Setter
 public class LineWebhookRequest {
@@ -36,6 +38,7 @@ public class LineWebhookRequest {
     @Getter
     @Setter
     public static class DeliveryContext {
+        @JsonProperty("redelivery")
         private boolean isRedelivery;
     }
 
