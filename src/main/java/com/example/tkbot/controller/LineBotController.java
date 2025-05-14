@@ -62,7 +62,7 @@ public class LineBotController {
         // TODO: いったんオウム返しなので受け取ったもの（message）をそのままセットするだけ
         Map<String, Object> messageObj = Map.of(
                 "type", "text",
-                "text", message + "\nJavaのtk-botより");
+                "text", message + "\n\nJavaのtk-botより");
         // HTTPボディ
         Map<String, Object> body = Map.of(
                 "replyToken", replyToken,
