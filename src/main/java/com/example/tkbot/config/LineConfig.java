@@ -9,7 +9,7 @@ public class LineConfig {
     private final String channelAccessToken;
 
     public LineConfig() {
-        Dotenv dotenv = Dotenv.load(); // .env を読み込む
+        Dotenv dotenv = Dotenv.configure().directory(".").load();
         this.channelAccessToken = dotenv.get("LINE_CHANNEL_ACCESS_TOKEN");
     }
 
