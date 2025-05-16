@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.tkbot.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
