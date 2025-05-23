@@ -84,7 +84,12 @@ public class LineBotController {
         } else {
             dayOfWeek = "そんなものはない";
         }
-        Map<String, Object> messageObj = Map.of("text", dayOfWeek);
+      
+        Map<String, Object> messageObj = Map.of(
+            "type", "text",
+            "text", dayOfWeek
+        );
+
 
         // HTTPボディ
         Map<String, Object> body = Map.of(
