@@ -2,6 +2,11 @@ package com.example.tkbot.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -59,13 +64,30 @@ public class LineBotController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         // 送り返すメッセージのオブジェクトを作成
         // TODO: いったんオウム返しなので受け取ったもの（message）をそのままセットするだけ
-        Map<String, Object> messageObj = Map.of(
-                "type", "text",
-                "text", message + "\n\nJavaのtk-botより");
+        // Map<String, Object> messageObj = Map.of(
+        //         "type", "text",
+        //         "text", message + "\n\nJavaのtk-botより");
+
+        // 変数を初期化
+        LocalDate today;
+        String dayOfWeek;
+        // 昨日or今日or明日の判定
+        if (message.equals("昨日")) {
+            today = LocalDate.now().minusDays(1);
+            dayOfWeek = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.JAPAN);
+        } else if(message.equals("今日")){
+            today = LocalDate.now();
+            dayOfWeek = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.JAPAN);
+        } else if(message.equals("明日")){
+            today = LocalDate.now().plusDays(1);
+            dayOfWeek = today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.JAPAN);
+        } else {
+            dayOfWeek = "そんなものはない";
+        }
         // HTTPボディ
         Map<String, Object> body = Map.of(
                 "replyToken", replyToken,
-                "messages", List.of(messageObj));
+                "messages", List.of(dayOfWeek));
         // bodyとheaderを詰めたHTTPリクエストを作成
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
         try {
