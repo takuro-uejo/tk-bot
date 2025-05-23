@@ -84,10 +84,12 @@ public class LineBotController {
         } else {
             dayOfWeek = "そんなものはない";
         }
+        Map<String, Object> messageObj = Map.of("text", dayOfWeek);
+
         // HTTPボディ
         Map<String, Object> body = Map.of(
                 "replyToken", replyToken,
-                "messages", List.of(dayOfWeek));
+                "messages", List.of(messageObj));
         // bodyとheaderを詰めたHTTPリクエストを作成
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
         try {
