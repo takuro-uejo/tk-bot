@@ -2,6 +2,7 @@ package com.example.tkbot.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -96,15 +97,15 @@ public class LineBotController {
             dayOfWeek = "そんなものはない";
         }
 
-        garbageDay = garbageDays.get(dayOfWeek);
-
-        if (garbageDay != null) {
+        if (dayOfWeek.equals("そんなものはない")) {
             garbageDay = "正気か!?";
-        } 
+        } else {
+            garbageDay = garbageDays.get(dayOfWeek);
+        }
 
         Map<String, Object> messageObj = Map.of(
             "type", "text",
-            "text", dayOfWeek + "\n" + garbageDays
+            "text", dayOfWeek + "\n" + garbageDay
         );
 
 
