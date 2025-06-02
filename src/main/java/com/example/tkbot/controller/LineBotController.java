@@ -68,9 +68,20 @@ public class LineBotController {
         //         "type", "text",
         //         "text", message + "\n\nJavaのtk-botより");
 
+        Map<String, String>garbageDays =new HashMap<>();
+        garbageDays.put("月曜日", "ええやんええやん");
+        garbageDays.put("火曜日", "ええやんええやん");
+        garbageDays.put("水曜日", "燃えるゴミ");
+        garbageDays.put("木曜日", "カン、ビン、ダンボール");
+        garbageDays.put("金曜日", "ペットボトル、電池");
+        garbageDays.put("土曜日", "燃えるゴミ");
+        garbageDays.put("日曜日", "ええやんええやん");
+
         // 変数を初期化
         LocalDate today;
         String dayOfWeek;
+        String garbageDay;
+
         // 昨日or今日or明日の判定
         if (message.equals("昨日")) {
             today = LocalDate.now().minusDays(1);
@@ -84,10 +95,13 @@ public class LineBotController {
         } else {
             dayOfWeek = "そんなものはない";
         }
-      
+
+        garbageDay = garbageDays.get(dayOfWeek);
+
+
         Map<String, Object> messageObj = Map.of(
             "type", "text",
-            "text", dayOfWeek
+            "text", dayOfWeek + "\n" + garbageDays
         );
 
 
