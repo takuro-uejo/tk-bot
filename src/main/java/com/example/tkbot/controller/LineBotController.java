@@ -98,6 +98,9 @@ public class LineBotController {
 
         garbageDay = garbageDays.get(dayOfWeek);
 
+        if (garbageDay != null) {
+            garbageDay = "正気か!?";
+        } 
 
         Map<String, Object> messageObj = Map.of(
             "type", "text",
